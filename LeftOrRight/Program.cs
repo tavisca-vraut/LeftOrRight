@@ -4,29 +4,13 @@ namespace LeftOrRight
 {
     class Program
     {
-        int MaxReach(string program)
-        {
-            int max = int.MinValue;
-            int c = 0;
-
-            foreach (var command in program)
-            {
-                if (command =='L') c--;
-                else c++;
-
-                max = Math.Max(max, Math.Abs(c));
-            }
-
-            return max;
-        }
-
-
         int MaxDistance(string program)
         {
-            if (program.Contains('?') == false)
-                return MaxReach(program);
+            var canAllBeOneMove = new ReachMaximizer();
+            var leftMax = canAllBeOneMove.GetMaxDistance(program.Replace('?', 'L'));
+            var righMax = canAllBeOneMove.GetMaxDistance(program.Replace('?', 'R'));
 
-            return Math.Max(MaxReach(program.Replace('?', 'L')), MaxReach(program.Replace('?', 'R')));
+            return Math.Max(leftMax, righMax);
         }
 
         static void Main(string[] args)
